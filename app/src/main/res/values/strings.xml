@@ -1,4 +1,33 @@
 <resources>
     <string name="app_name">BookKeeper</string>
     <string name="action_settings">Settings</string>
+
+    <!-- edit_per_book.xml and add_book.xml -->
+    <string name="book_isbn">ISBN:</string>
+    <string name="book_author">Author:</string>
+    <string name="book_title">Title:</string>
+    <string name="book_status">Status:</string>
+    <string name="read">Read</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="reading">Reading</string>
+    <string name="isOwned">Book Owned:</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="rating">Rating:</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="date">Date Read:</string>
+    <string name="yyyymmdd">yyyy-mm-dd</string>
+    <string name="comments">Comments:</string>
+    <string name="submit">Submit</string>
+    <string name="delete_book">Delete Book</string>
+
+    <!-- book_summary.xml -->
+    <string name="buy">Buy</string>
+    <string name="preview">Preview</string>
+    <string name="moreInfo">More Info</string>
+    <string name="add_book">Add Book</string>
 </resources>

@@ -31,12 +31,12 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="26dp"
             android:text="@string/book_isbn" />
 
         <EditText
             android:id="@+id/updateISBN"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/ISBNLabel"
             android:layout_toRightOf="@+id/ISBNLabel"
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ISBNLabel"
-            android:layout_marginLeft="17dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="26dp"
             android:text="@string/book_title" />
 
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/Title"
-            android:layout_marginLeft="17dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="26dp"
             android:text="@string/book_author" />
 
@@ -76,10 +76,10 @@
             android:id="@+id/updateAuthor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/Author"
             android:layout_toRightOf="@+id/Author"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="text"
+            android:layout_alignBottom="@+id/Author" />
 
         <!-- ____________________________Status___________________________________ -->
         <TextView
@@ -89,8 +89,7 @@
             android:layout_below="@+id/Author"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:text="@string/book_status"
-            android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+            android:text="@string/book_status" />
 
         <RadioGroup
             android:id="@+id/StatusRadioGroup"
@@ -103,20 +102,17 @@
                 android:id="@+id/radioRead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/read"
-                android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+                android:text="@string/read" />
             <RadioButton
                 android:id="@+id/radioWantToRead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/wishlist"
-                android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+                android:text="@string/wishlist" />
             <RadioButton
                 android:id="@+id/radioReading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/reading"
-                android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+                android:text="@string/reading" />
         </RadioGroup>
 
         <!-- ____________________________Owned___________________________________ -->
@@ -127,8 +123,7 @@
             android:layout_below="@+id/StatusRadioGroup"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="16dp"
-            android:text="@string/isOwned"
-            android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+            android:text="@string/isOwned" />
 
         <RadioGroup
             android:id="@+id/isOwnedRadioGroup"
@@ -142,15 +137,13 @@
                 android:id="@+id/isOwnedYes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/yes"
-                android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+                android:text="@string/yes" />
 
             <RadioButton
                 android:id="@+id/isOwnedNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no"
-                android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+                android:text="@string/no" />
         </RadioGroup>
 
         <!-- ____________________________Rating___________________________________ -->
@@ -173,32 +166,27 @@
                 android:id="@+id/radioOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/one"
-                android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+                android:text="@string/one" />
             <RadioButton
                 android:id="@+id/radioTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/two"
-                android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+                android:text="@string/two" />
             <RadioButton
                 android:id="@+id/radioThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/three"
-                android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+                android:text="@string/three" />
             <RadioButton
                 android:id="@+id/radioFour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/four"
-                android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+                android:text="@string/four" />
             <RadioButton
                 android:id="@+id/radioFive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/five"
-                android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+                android:text="@string/five" />
         </RadioGroup>
 
         <!-- ____________________________Date___________________________________ -->
@@ -231,8 +219,7 @@
             android:layout_alignLeft="@+id/Date"
             android:layout_below="@+id/editDate"
             android:layout_marginTop="17dp"
-            android:text="@string/comments"
-            android:textSize="@dimen/abc_action_bar_subtitle_text_size" />
+            android:text="@string/comments" />
 
         <EditText
             android:id="@+id/editComments"
