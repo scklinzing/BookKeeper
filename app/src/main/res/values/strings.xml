@@ -2,6 +2,26 @@
     <string name="app_name">BookKeeper</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Prefs -->
+    <string name="add_book">Add Book</string>
+    <string name="add_book_summary">Add a new book to your library.</string>
+    <string name="arrange_by">Arrange by:</string>
+    <string name="arrange_by_summary">Use this feature to set the default arrange by for your book list</string>
+    <string name="filter_by_rating">Filter by Rating:</string>
+    <string name="filter_by_rating_summary">Use this feature to show only books with a certain rating.</string>
+    <string name="filter_by_status">Filter by Status:</string>
+    <string name="filter_by_status_summary">Use this feature to show only books with a particular status.</string>
+    <string name="title_search">Search by Title:</string>
+    <string name="title_search_summary">Non-case sensitive search for books containing the entered text as part of its title.</string>
+    <string name="author_search">Search by Author:</string>
+    <string name="author_search_summary">Non-case sensitive search for books containing the entered text as part the author\'s name.</string>
+
+    <!-- login.xml -->
+    <string name="refresh">Refresh</string>
+
+    <!-- MainForm -->
+    <string name="title_activity_main_form">MainForm</string>
+
     <!-- edit_per_book.xml and add_book.xml -->
     <string name="book_isbn">ISBN:</string>
     <string name="book_author">Author:</string>
@@ -25,9 +45,36 @@
     <string name="submit">Submit</string>
     <string name="delete_book">Delete Book</string>
 
+    <!-- add_book_choice.xml -->
+    <string name="YouCanAddABookToThe">You can add a book to the </string>
+    <string name="libraryByScanningThe">library by scanning the </string>
+    <string name="booksISBN">book ISBN:</string>
+    <string name="scan">Scan Book</string>
+    <string name="or">or</string>
+    <string name="enterISBN">Enter ISBN:</string>
+    <string name="LookUpByISBN">Look up by ISBN</string>
+    <string name="ManuallyAddBook">Manually add Book</string>
+
     <!-- book_summary.xml -->
     <string name="buy">Buy</string>
     <string name="preview">Preview</string>
     <string name="moreInfo">More Info</string>
-    <string name="add_book">Add Book</string>
+
+    <!-- Unsure -->
+    <string name="go">GO</string>
+    <string name="title_activity_book_scanner">BookScanner</string>
+    <string name="next">&gt;</string>
+    <string name="title_activity_login">Login</string>
+    <string name="cancel">Cancel</string>
+    <string name="book_summary">Book Summary</string>
+    <string name="title_activity_add_book_choice">Add Book</string>
+    <string name="books">Books</string>
+    <string name="title_activity_edit_user">EditUser</string>
+    <string name="book_edit">Edit Book Information</string>
+    <string name="edit_per_book">Edit Personal Book</string>
+    <string name="sortByTitle">Sort by Title</string>
+    <string name="sortByAuthor">Sort by Author</string>
+    <string name="sortByStatus">Sort by Status</string>
+    <string name="sortByOwned">Sort by Owned</string>
+    <string name="search">Search</string>
 </resources>

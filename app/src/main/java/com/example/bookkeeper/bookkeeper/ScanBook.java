@@ -25,7 +25,7 @@ public class ScanBook extends Activity {
     public final static String EXTRA_SCAN_FORMAT = "com.bookies.bookkeeper.SCAN_FORMAT";
     public final static String EXTRA_SCAN_ISBN = "com.bookies.bookkeeper.SCAN_CONTENT";
 
-    private static final String TAG = "AddBookChoice";
+    private static final String TAG = "ScanBook";
 
     private EditText isbn;
 
@@ -33,7 +33,7 @@ public class ScanBook extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "OnCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_book_choice);
+        setContentView(R.layout.scan_book);
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -97,8 +97,8 @@ public class ScanBook extends Activity {
             String scanFormat = "EAN13";
             Log.d("SCAN", "Format: " + scanFormat + " ISBN: " + isbnStr);
             Intent bookSummaryIntent = new Intent(this, BookSummary.class);
-            bookSummaryIntent.putExtra(AddBookChoice.EXTRA_SCAN_ISBN, isbnStr);
-            bookSummaryIntent.putExtra(AddBookChoice.EXTRA_SCAN_FORMAT,
+            bookSummaryIntent.putExtra(ScanBook.EXTRA_SCAN_ISBN, isbnStr);
+            bookSummaryIntent.putExtra(ScanBook.EXTRA_SCAN_FORMAT,
                     scanFormat);
             startActivity(bookSummaryIntent);
         }
@@ -111,19 +111,19 @@ public class ScanBook extends Activity {
         if (scanningResult != null) {
             String scanFormat = scanningResult.getFormatName();
             String isbn = scanningResult.getContents();
-            Log.d("AddBookChoice", "content: " + isbn + " - format: "
+            Log.d("ScanBook", "content: " + isbn + " - format: "
                     + scanFormat);
             if (isbn != null && scanFormat != null
                     && scanFormat.equalsIgnoreCase("EAN_13")) {
 
                 Intent bookSummaryIntent = new Intent(this, BookSummary.class);
-                bookSummaryIntent.putExtra(AddBookChoice.EXTRA_SCAN_ISBN, isbn);
-                bookSummaryIntent.putExtra(AddBookChoice.EXTRA_SCAN_FORMAT,
+                bookSummaryIntent.putExtra(ScanBook.EXTRA_SCAN_ISBN, isbn);
+                bookSummaryIntent.putExtra(ScanBook.EXTRA_SCAN_FORMAT,
                         scanFormat);
                 startActivity(bookSummaryIntent);
 
             } else {
-                Log.d("AddBookChoice", "Scan error.");
+                Log.d("ScanBook", "Scan error.");
                 Toast.makeText(getApplicationContext(), "This book needs the ISBN manually to be entered manually. Sorry!",
                         Toast.LENGTH_LONG).show();
             }

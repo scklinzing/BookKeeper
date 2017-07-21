@@ -126,8 +126,8 @@ public class BookSummary extends ActionBarActivity {
 
         Intent intent = getIntent();
 
-        scanFormat = intent.getStringExtra(AddBookChoice.EXTRA_SCAN_FORMAT);
-        isbn = intent.getStringExtra(AddBookChoice.EXTRA_SCAN_ISBN);
+        scanFormat = intent.getStringExtra(ScanBook.EXTRA_SCAN_FORMAT);
+        isbn = intent.getStringExtra(ScanBook.EXTRA_SCAN_ISBN);
         if (isbn.contains("ISBN")) {
             isbn = isbn.substring(6); // cut off "ISBN: " at the beginning
         }
