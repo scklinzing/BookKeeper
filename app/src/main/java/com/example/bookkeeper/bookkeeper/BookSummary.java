@@ -474,7 +474,7 @@ public class BookSummary extends ActionBarActivity {
             // Loop in case we have more than 1 URL, in our case, we only have
             // one
             for (String bookSearchURL : bookURLs) {
-                // HTTP Cliet
+                // HTTP Client
                 HttpClient bookClient = new DefaultHttpClient();
 
                 try {
