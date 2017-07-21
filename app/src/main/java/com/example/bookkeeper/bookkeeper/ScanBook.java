@@ -6,8 +6,8 @@ package com.example.bookkeeper.bookkeeper;
  * This class aids in scanning a Book and grabbing the information.
  */
 
-//import com.google.zxing.integration.android.IntentIntegrator;
-//import com.google.zxing.integration.android.IntentResult;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -64,11 +64,11 @@ public class ScanBook extends Activity {
         } else {
             String isbnStr = isbn.getText().toString();
 
-            Log.d("Testing", "Length: " + isbn.length());
+            Log.d(TAG + ": Testing", "Length: " + isbn.length());
 
             if (isbnStr.length() == 10) {
                 isbnStr = "978" + isbnStr;
-                Log.d("Testing", "ISBN1: " + isbnStr);
+                Log.d(TAG + ": Testing", "ISBN1: " + isbnStr);
             }
 
             if (isbnStr.length() == 13 && isbnStr.indexOf("978") == 0) {
@@ -91,9 +91,9 @@ public class ScanBook extends Activity {
                     isbnStr += 10 - checkNum;
                 }
 
-                Log.d("Testing", "ISBN2: " + isbnStr);
+                Log.d(TAG + ": Testing", "ISBN2: " + isbnStr);
             }
-            Log.d("Testing", "ISBN3: " + isbnStr);
+            Log.d(TAG + ": Testing", "ISBN3: " + isbnStr);
             String scanFormat = "EAN13";
             Log.d("SCAN", "Format: " + scanFormat + " ISBN: " + isbnStr);
             Intent bookSummaryIntent = new Intent(this, BookSummary.class);
@@ -111,7 +111,7 @@ public class ScanBook extends Activity {
         if (scanningResult != null) {
             String scanFormat = scanningResult.getFormatName();
             String isbn = scanningResult.getContents();
-            Log.d("ScanBook", "content: " + isbn + " - format: "
+            Log.d(TAG, "content: " + isbn + " - format: "
                     + scanFormat);
             if (isbn != null && scanFormat != null
                     && scanFormat.equalsIgnoreCase("EAN_13")) {
@@ -123,7 +123,7 @@ public class ScanBook extends Activity {
                 startActivity(bookSummaryIntent);
 
             } else {
-                Log.d("ScanBook", "Scan error.");
+                Log.d(TAG, "Scan error.");
                 Toast.makeText(getApplicationContext(), "This book needs the ISBN manually to be entered manually. Sorry!",
                         Toast.LENGTH_LONG).show();
             }
