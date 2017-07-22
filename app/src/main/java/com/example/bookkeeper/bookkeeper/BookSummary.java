@@ -7,7 +7,7 @@ package com.example.bookkeeper.bookkeeper;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
+/*
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -18,7 +18,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.amazon.advertising.api.sample.SignedRequestsHelper;
 import com.madmarcos.resttest.QueryCallback;
 import com.madmarcos.resttest.QueryTask;
-
+*/
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -157,7 +157,7 @@ public class BookSummary extends ActionBarActivity {
             ratingCountText.setText(savedInstanceState.getString("ratings"));
             int numStars = savedInstanceState.getInt("stars");// zero if null
             for (int s = 0; s < numStars; s++) {
-                starViews[s].setImageResource(R.drawable.star);
+                //starViews[s].setImageResource(R.drawable.star);
                 starLayout.addView(starViews[s]);
             }
             starLayout.setTag(numStars);
@@ -181,9 +181,11 @@ public class BookSummary extends ActionBarActivity {
 
         String query = "select * from BOOK where ISBN = \"" + isbn + "\"";
         Log.d(TAG, "Query CHECK BOOK= " + query);
+        /*
         new QueryTask(Variables.getWS_URL(), Variables.getSessionId(),
                 Variables.getSalt(), query, QUERY_BOOK, this,
                 Variables.getRest(), findViewById(R.id.progressBar)).execute();
+        */
         // new GetPriceInfo().execute(getAmazonSignedRequest(isbn));
     }
 
@@ -261,6 +263,7 @@ public class BookSummary extends ActionBarActivity {
     }
 
     private String getAmazonSignedRequest(String isbn) {
+        /*
         SignedRequestsHelper helper;
         try {
             helper = SignedRequestsHelper.getInstance(ENDPOINT,
@@ -269,13 +272,13 @@ public class BookSummary extends ActionBarActivity {
             e.printStackTrace();
             return null;
         }
-
+        */
         String requestUrl = null;
         // String title = null;
 
         String queryString = "Service=AWSECommerceService&Version=2009-03-31&Operation=ItemLookup&ResponseGroup=Large&AssociateTag=splint-20&SearchIndex=Books&IdType=ISBN&ItemId="
                 + isbn;
-        requestUrl = helper.sign(queryString);
+        //requestUrl = helper.sign(queryString);
         Log.d("Amazon", "Request is \"" + requestUrl + "\"");
 
         Log.d("Amazon", "After: Isbn13= " + isbn + " Isbn10= "
@@ -475,6 +478,7 @@ public class BookSummary extends ActionBarActivity {
             // one
             for (String bookSearchURL : bookURLs) {
                 // HTTP Client
+                /*
                 HttpClient bookClient = new DefaultHttpClient();
 
                 try {
@@ -505,6 +509,7 @@ public class BookSummary extends ActionBarActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                */
                 Log.d("GET_BOOK_INFO", "book builder " + bookBuilder.toString());
             }
 
@@ -583,7 +588,7 @@ public class BookSummary extends ActionBarActivity {
                     starLayout.setTag(numStars);
                     starLayout.removeAllViews();
                     for (int s = 0; s < numStars; s++) {
-                        starViews[s].setImageResource(R.drawable.star);
+                        //starViews[s].setImageResource(R.drawable.star);
                         starLayout.addView(starViews[s]);
                     }
                 } catch (JSONException jse) {
@@ -702,7 +707,7 @@ public class BookSummary extends ActionBarActivity {
         }
     }
 
-    @Override
+
     public void onQueryTaskCompleted(int code, JSONObject result) {
         try {
             if (code == QUERY_BOOK) {
