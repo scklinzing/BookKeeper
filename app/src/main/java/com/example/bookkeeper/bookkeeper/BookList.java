@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class BookList {
-    private ArrayList<BookInfo> booklist;
+    private ArrayList<Book> booklist;
 
-    public BookList(ArrayList<BookInfo> list) {
+    public BookList(ArrayList<Book> list) {
         booklist = list;
     }
 
-    public ArrayList<BookInfo> getList() {
+    public ArrayList<Book> getList() {
         return booklist;
     }
 
-    public BookInfo getISBN(String isbn) {
+    public Book getISBN(String isbn) {
         for (int i = 0; i < booklist.size(); i++) {
             if (booklist.get(i).getBookID().equals(isbn)) {
                 return booklist.get(i);
@@ -29,11 +29,11 @@ public class BookList {
         return null;
     }
 
-    public ArrayList<BookInfo> getList(char[] filter, char sort, String title,
+    public ArrayList<Book> getList(char[] filter, char sort, String title,
                                        String author) {
-        ArrayList<BookInfo> ret = new ArrayList<BookInfo>();
+        ArrayList<Book> ret = new ArrayList<Book>();
         boolean add = true;
-        BookInfo element;
+        Book element;
         // filter is a character array representing each possible filter ==
         // (int) 0 represents filter is not active
         // filter[0] char 1 2 3 0
@@ -44,12 +44,13 @@ public class BookList {
         int status;
         int rating;
 		/*
-		 * 1= wishlist 2= read 3= reading 0= view all
+		 * New: 1 = read, 2 = reading, 3 = wishlist
+		 * Old: 1= wishlist 2= read 3= reading 0= view all
 		 */
-        if (filter[0] == '2')
-            status = 2;
-        else if (filter[0] == '1')
+        if (filter[0] == '1')
             status = 1;
+        else if (filter[0] == '2')
+            status = 2;
         else if (filter[0] == '3')
             status = 3;
         else
@@ -83,7 +84,7 @@ public class BookList {
             element = booklist.get(i);
             // filter[0] status
             if (add == true && status != 0) {
-                if (element.getBookStatus() != status) {
+                if (element.getStatus() != status) {
                     add = false;
                 }
             }// end filter status
@@ -97,7 +98,7 @@ public class BookList {
 
             // filter Title
             if (add == true && title != null) {
-                if (!element.getBookName().toLowerCase()
+                if (!element.getTitle().toLowerCase()
                         .contains(title.toLowerCase())) {
                     add = false;
                 }
@@ -105,7 +106,7 @@ public class BookList {
 
             // filter Author
             if (add == true && author != null) {
-                if (!element.getBookAuthor().toLowerCase()
+                if (!element.getAuthor().toLowerCase()
                         .contains(author.toLowerCase())) {
                     add = false;
                 }
@@ -119,16 +120,16 @@ public class BookList {
     }
 
     // collection sort TITLE, AUTHOR, RATING, STATUS
-    private ArrayList<BookInfo> sort(ArrayList<BookInfo> proc, char sort) {
+    private ArrayList<Book> sort(ArrayList<Book> proc, char sort) {
         // select a comparitor and sort the collection.
         if (sort == 't')
-            Collections.sort(proc, SortBookInfo.TITLE_SORT);
+            Collections.sort(proc, SortBook.TITLE_SORT);
         else if (sort == 'a')
-            Collections.sort(proc, SortBookInfo.AUTHOR_SORT);
+            Collections.sort(proc, SortBook.AUTHOR_SORT);
         else if (sort == 'r')
-            Collections.sort(proc, SortBookInfo.RATING_SORT);
+            Collections.sort(proc, SortBook.RATING_SORT);
         else if (sort == 's')
-            Collections.sort(proc, SortBookInfo.STATUS_SORT);
+            Collections.sort(proc, SortBook.STATUS_SORT);
         return proc;
     }
 }

@@ -41,7 +41,8 @@ import android.widget.Toast;
 import android.widget.ExpandableListView.OnChildClickListener;
 
 public class MainActivity extends ExpandableListActivity {
-    private static final String TAG = "MainForm";
+    private static final String TAG = "MainActivity";
+    private static DatabaseHandler db;
     private static BookList mainBookList = null; // library list
     private ArrayList<ExpandableParent> parentItems = new ArrayList<ExpandableParent>();
     public static String isbn;
@@ -52,25 +53,25 @@ public class MainActivity extends ExpandableListActivity {
     private static final int QUERY_MAINLIST = 1;
     List<Map<String, String>> rows;
     public static BookList getMainList(){
-        //Warning MAY RETURN NULL
+        // todo Warning MAY RETURN NULL
         return mainBookList;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // todo fix
-        //PreferenceManager.setDefaultValues(this, R.xml.settings, false);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        db = new DatabaseHandler(this);
 
         getAppBookList(); // get app book list
+
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mPreferenceListener = new PreferenceChangeListener();
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
     }
-    private class PreferenceChangeListener implements
-            OnSharedPreferenceChangeListener {
+    private class PreferenceChangeListener implements OnSharedPreferenceChangeListener {
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences prefs,
-                                              String key) {
+        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             ApplySettings();
         }
     }
@@ -94,8 +95,8 @@ public class MainActivity extends ExpandableListActivity {
 
     /* This method pulls the book list from the web */
     public void getAppBookList(){
-        String query = "SELECT * FROM BOOK";
-        Log.d(TAG, "getAppBookList() Query = " + query);
+        Log.d(TAG, "getAppBookList(): Attempting to generate the book list.");
+        ArrayList<Book> listing = db.getAllBooks();
         // todo replace query
         //new QueryTask(Variables.getWS_URL(), Variables.getSessionId(), Variables.getSalt(), query, QUERY_MAINLIST, this, Variables.getRest(), findViewById(R.id.progressBar)).execute();
     }
@@ -107,7 +108,7 @@ public class MainActivity extends ExpandableListActivity {
                         int size = result.length();
                         Log.d(TAG, "MainList Results: " + size);
                         Log.d(TAG, "String: " + result.toString());
-                        ArrayList<BookInfo> listing = new ArrayList<BookInfo>();
+                        ArrayList<Book> listing = new ArrayList<Book>();
                         JSONObject o2;
                         Iterator<String> keys = result.keys();
                         while (keys.hasNext()){
@@ -115,17 +116,17 @@ public class MainActivity extends ExpandableListActivity {
                             // is next value a String or a JSONObject?
                             if(key.equals("checksum") || key.equals("response_status")) continue;
                             // todo fix
-                            /*
+                            
                             if(utility.JSONStuff.isNumericInt(key)){
                                 //decode the decoded json...
                                 SimpleDateFormat parser = new SimpleDateFormat("yyyy-mm-dd");
                                 o2 = new JSONObject(result.getString(key));
                                 try { // add the book to mainList
-                                    listing.add(new BookInfo(o2.getString("ISBN"), o2.getString("Title"),o2.getString("Author"), o2.getInt("Rating"), o2.getInt("Status"), o2.getString("isOwned"), parser.parse(o2.getString("dateRead")), o2.getString("Comments")));
+                                    listing.add(new Book(o2.getString("ISBN"), o2.getString("Title"),o2.getString("Author"), o2.getInt("Rating"), o2.getInt("Status"), o2.getString("isOwned"), parser.parse(o2.getString("dateRead")), o2.getString("Comments")));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
-                            } */
+                            } 
                         }
                         mainBookList = new BookList(listing);
                         ApplySettings(); // filters
@@ -160,7 +161,7 @@ public class MainActivity extends ExpandableListActivity {
         String author = Prefs.getAuthorSearch(getBaseContext());
         if(author.equals("")) author = null;
         //Run sort and filter on the list
-        ArrayList<BookInfo> listing = mainBookList.getList(filter, arrange, title, author);
+        ArrayList<Book> listing = mainBookList.getList(filter, arrange, title, author);
 
         //fill in the parent and child fields.
         for(int i = 0; i < listing.size(); i++){

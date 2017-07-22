@@ -100,8 +100,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Add a new Book to the book table in the database.
      * @param book the Book information to add to the database.
      */
-    public void addBook(Book book){
-        Log.d("addBook", book.toString());
+    public int addBook(Book book){
+        Log.d(TAG + "addBook()", book.toString());
 
         // get writeable database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -118,10 +118,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_OWNED, book.getOwned());
 
         // insert the information into table
-        db.insert(TABLE_BOOKS, null, values);
+        int bookId = (int) db.insert(TABLE_BOOKS, null, values);
+        if (bookId != -1) {
+            book.setId(bookId);
+        } else {
+            Log.d(TAG, "Error adding book.");
+        }
 
         // close the database when you are finished writing
         db.close();
+
+        return bookId;
     }
 
     /**
@@ -149,7 +156,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         b.setIsbn(c.getString(c.getColumnIndex(KEY_ISBN)));
         b.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
         b.setAuthor(c.getString(c.getColumnIndex(KEY_AUTHOR)));
-        b.setStatus(c.getString(c.getColumnIndex(KEY_STATUS)));
+        b.setStatus(c.getInt(c.getColumnIndex(KEY_STATUS)));
+        b.setRating(c.getInt(c.getColumnIndex(KEY_RATING)));
+        b.setDateRead(c.getString(c.getColumnIndex(KEY_DATE_READ)));
+        b.setComments(c.getString(c.getColumnIndex(KEY_COMMENTS)));
+        b.setOwned(c.getString(c.getColumnIndex(KEY_OWNED)));
+
+        db.close();
+        return b;
+    }
+
+    /**
+     * @param isbn the isbn of the Book you want.
+     * @return a single Book from the database.
+     */
+    public Book getBook(String isbn){
+
+        // get readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // build the query
+        String selectQuery = "SELECT * FROM " + TABLE_BOOKS + " WHERE " + KEY_ISBN + " = " + isbn;
+
+        Cursor c = db.rawQuery(selectQuery,  null);
+
+        // if we get results, start at the beginning
+        if (c != null){
+            c.moveToFirst();
+        }
+
+        // build and return book
+        Book b = new Book();
+        b.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+        b.setIsbn(c.getString(c.getColumnIndex(KEY_ISBN)));
+        b.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+        b.setAuthor(c.getString(c.getColumnIndex(KEY_AUTHOR)));
+        b.setStatus(c.getInt(c.getColumnIndex(KEY_STATUS)));
         b.setRating(c.getInt(c.getColumnIndex(KEY_RATING)));
         b.setDateRead(c.getString(c.getColumnIndex(KEY_DATE_READ)));
         b.setComments(c.getString(c.getColumnIndex(KEY_COMMENTS)));
@@ -181,7 +223,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 book.setIsbn(c.getString(1));
                 book.setTitle(c.getString(2));
                 book.setAuthor(c.getString(3));
-                book.setStatus(c.getString(4));
+                book.setStatus(Integer.parseInt(c.getString(4)));
                 book.setRating(Integer.parseInt(c.getString(5)));
                 book.setDateRead(c.getString(6));
                 book.setComments(c.getString(7));
@@ -221,8 +263,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String ID = Integer.toString(id);
 
         // update the database with the new book
-        int i =  db.update(TABLE_BOOKS, values, KEY_ID + " = ?",
-                new String[] { ID });
+        int i =  db.update(TABLE_BOOKS, values, KEY_ID + " = ?", new String[] { ID });
 
         // close database and return
         db.close();

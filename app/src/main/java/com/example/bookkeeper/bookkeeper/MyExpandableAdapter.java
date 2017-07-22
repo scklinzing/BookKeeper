@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import supportClasses.BookInfo;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -24,10 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
 
-import com.madmarcos.resttest.QueryCallback;
-import com.madmarcos.resttest.QueryTask;
-
-public class MyExpandableAdapter extends BaseExpandableListAdapter implements QueryCallback {
+public class MyExpandableAdapter extends BaseExpandableListAdapter {
     private static final String TAG = "MyExpandableAdapter";
 
     private Activity activity;
@@ -106,22 +102,23 @@ public class MyExpandableAdapter extends BaseExpandableListAdapter implements Qu
                     public void onClick(View arg0) {
                         String isbn = parent.getChildren().get(0).getText();
                         isbn = isbn.substring(6); // cut off "ISBN: " at the beginning
-                        Intent intent = new Intent(context, EditPersonalBook.class);
+                        Intent intent = new Intent(context, EditBook.class);
                         intent.putExtra(EXTRA_ISBN, isbn);  //HP changed
-                        BookInfo book;
+                        Book book;
+                        // todo fix this
                         book = MainActivity.getMainList().getISBN(isbn);
                         if(book == null){
                             Toast.makeText(context, "Could not find ISBN \"" + isbn + "\" in my list!", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        intent.putExtra(EXTRA_AUTHOR, book.getBookAuthor());//HP changed
-                        intent.putExtra(EXTRA_TITLE, book.getBookName());//HP changed
-                        intent.putExtra(EXTRA_RATING, book.getRating());//HP changed
-                        intent.putExtra(EXTRA_STATUS, book.getBookStatus());//HP changed
-                        intent.putExtra(EXTRA_COMMENT,  book.getUserComment());//HP added
-                        intent.putExtra(EXTRA_ISOWNED, book.getBookIsOwned()); //HP added
-                        intent.putExtra(EXTRA_ID, book.getBookID()); //HP added
-                        intent.putExtra(EXTRA_DATE, book.getDateRead().getTime()); //HP added
+                        intent.putExtra(EXTRA_AUTHOR, book.getAuthor());
+                        intent.putExtra(EXTRA_TITLE, book.getTitle());
+                        intent.putExtra(EXTRA_RATING, book.getRating());
+                        intent.putExtra(EXTRA_STATUS, book.getStatus());
+                        intent.putExtra(EXTRA_COMMENT,  book.getComments());
+                        intent.putExtra(EXTRA_ISOWNED, book.getOwned());
+                        intent.putExtra(EXTRA_ID, book.getId());
+                        intent.putExtra(EXTRA_DATE, book.getDateRead());
                         context.startActivity(intent);
                     }
                 });
@@ -147,14 +144,13 @@ public class MyExpandableAdapter extends BaseExpandableListAdapter implements Qu
                 ( convertView.findViewById(R.id.optionalChildButton)).setOnClickListener(new OnClickListener(){
                     @Override
                     public void onClick(View arg0) {
-                        // TODO Auto-generated method stub
+                        // TODO fix query
                         String isbn = parent.getChildren().get(0).getText();
                         //Toast.makeText(context, "Button for " + isbn + " is clicked !", Toast.LENGTH_SHORT).show();
                         //- not for use by user - scanned = b.getString(EXTRA_SCANNED);
                         //- should be called at time of reset-numRatings = b.getString(EXTRA_NUMOFRATINGS);
                         //- should be called at time of reset-sumRatings = b.getString(EXTRA_SUMOFRATINGS);
-                        String query = "insert into USER_LIB (ISBN, Status, userID) "+
-                                "values ("+ isbn +",2, " + Variables.getUserId() +")";
+                        String query = "insert into USER_LIB (ISBN, Status, userID) "+ "values ("+ isbn +",2, " + Variables.getUserId() +")";
                         Log.d("ExpandableAdapter", "Query = " + query);
 
                         Variables.setIsbn(isbn);

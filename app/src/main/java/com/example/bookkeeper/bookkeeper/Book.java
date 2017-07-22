@@ -15,11 +15,11 @@ public class Book {
     String isbn;  	    // ISBN for book
     String title;  	    // book title
     String author;      // book author
-    String status;      // read, 2 = reading, 3 = wishlist
+    int status;         // 1 = read, 2 = reading, 3 = wishlist
     int rating;         // 1- 5 rating system
     String dateRead;    // date book was read, format: 0000-00-00
     String comments;    // user comments on book
-    String owned;       // is the book owned or not? [true or false]
+    int owned;          // is the book owned or not? [true = 1, false = 0]
 
     /**
      * An empty constructor for a Book object.
@@ -39,8 +39,8 @@ public class Book {
      * @param comments Comments about the book from the user.
      * @param owned Is the book owned or not?
      */
-    public Book(String isbn, String title, String author, String status, int rating,
-                String dateRead, String comments, String owned) {
+    public Book(String isbn, String title, String author, int status, int rating,
+                String dateRead, String comments, int owned) {
         super();
         this.isbn = isbn;
         this.title = title;
@@ -50,7 +50,6 @@ public class Book {
         this.dateRead = dateRead;
         this.comments = comments;
         this.owned = owned;
-
     }
 
     /**
@@ -115,9 +114,9 @@ public class Book {
 
     /**
      * @return the status of the book (read, or unread)
-     * read, reading, wishlist
+     * 1 = read, 2 = reading, 3 = wishlist
      */
-    public String getStatus(){
+    public int getStatus(){
         return this.status;
     }
 
@@ -125,7 +124,7 @@ public class Book {
      * Manually set the status of the Book.
      * @param status the new status.
      */
-    public void setStatus(String status){
+    public void setStatus(int status){
         this.status = status;
     }
 
@@ -177,7 +176,7 @@ public class Book {
     /**
      * @return true if the Book is owned, false if it is not.
      */
-    public String getOwned(){
+    public int getOwned(){
         return this.owned;
     }
 
@@ -185,7 +184,7 @@ public class Book {
      * Set if the Book is owned or not.
      * @param owned
      */
-    public void setOwned(String owned){
+    public void setOwned(int owned){
         this.owned = owned;
     }
 
